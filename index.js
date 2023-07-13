@@ -239,7 +239,7 @@ class Tab {
       placeholder = new TabSystem().getConfig().defaultPlaceholder;
     this.placeholder = placeholder;
     this.connectedElement.addEventListener("click", () => {
-      tabSystem.setActiveTab(this);
+      new TabSystem().setActiveTab(this);
     });
   }
 
@@ -287,5 +287,3 @@ class Tab {
     return this.placeholder;
   }
 }
-
-module.exports = {TabSystem: TabSystem, Tab: Tab}
