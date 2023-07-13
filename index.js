@@ -34,8 +34,6 @@ THE SOFTWARE.
 // you must have a tab container, a btn container, a tab template, and a btn template, and a search bar.
 // btw this might be hard to set up, set up your own classes and CSS until you find it satisfactory.
 
-// also, there are examples at the bottom of this file :)
-
 // new TabSystem() - Initializes the TabSystem class, used for holding all the information about the tab system, and it's functions.
 // TabSystem.addTab(tab) - Adds a tab to the tab system. Returns the tab.
 // TabSystem.getTabTemplate() - Returns the tab template.
@@ -68,7 +66,7 @@ class TabSystem {
       URLBar: document.getElementById("adrbar"),
       tabActiveColor: "#484848",
       tabInactiveColor: "#444444d2",
-      defaultPlaceholder: "Starting Page (abyss://newtab)",
+      defaultPlaceholder: "Starting Page",
     };
     this.tabs = [];
     this.tabCount = 0;
@@ -289,22 +287,3 @@ class Tab {
     return this.placeholder;
   }
 }
-
-// little example
-
-const ts = new TabSystem();
-
-const firstTab = new Tab(
-  document.getElementById("sPa"), // connected button element
-  document.getElementById("sFr") // connected frame
-);
-ts.addTab(firstTab);
-ts.setActiveTab(firstTab);
-
-// you can also generate it based off of templates
-// const secondTab = new Tab(
-//   ts.createTabBtn(ts.genRanId()),
-//   ts.createTabFrame(ts.genRanId())
-// );
-// ts.addTab(secondTab);
-// ts.setActiveTab(secondTab);
