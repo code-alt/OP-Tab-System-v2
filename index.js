@@ -56,7 +56,7 @@ THE SOFTWARE.
 // Tab.setTabElement(tabElement) - Sets the tab element.
 // Tab.setConnectedElement(connectedElement) - Sets the connected element.
 
-class TabSystem {
+export class TabSystem {
   constructor() {
     this.config = {
       tabContainer: document.getElementById("tab-frames"),
@@ -229,7 +229,7 @@ class TabSystem {
   }
 }
 
-class Tab {
+export class Tab {
   constructor(connectedElement, tabFrame, searchBarContent, placeholder) {
     this.connectedElement = connectedElement;
     this.tabElement = tabFrame;
