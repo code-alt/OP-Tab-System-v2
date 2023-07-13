@@ -1,7 +1,7 @@
 # Code-Alt's OP Tab System v2
 Decent-ish tab system
 
-You can import https://raw.githubusercontent.com/code-alt/OP-Tab-System-v2/main/index.js in order to use this.
+You can import https://cdn.jsdelivr.net/gh/code-alt/op-tab-system-v2/index.js in order to use this.
 
 # Examples:
 
