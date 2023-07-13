@@ -1,6 +1,6 @@
 # Code-Alt's OP Tab System v2
-decent-ish tab system
-
+Decent-ish tab system
+You can link a script tag to https://raw.githubusercontent.com/code-alt/OP-Tab-System-v2/main/index.js in order to use this.
 
 # Examples:
 
