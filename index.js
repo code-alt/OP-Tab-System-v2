@@ -56,18 +56,21 @@ THE SOFTWARE.
 // Tab.setTabElement(tabElement) - Sets the tab element.
 // Tab.setConnectedElement(connectedElement) - Sets the connected element.
 
+export var dp = "Starting Page"
+
 export class TabSystem {
-  constructor() {
+  constructor(object) {
     this.config = {
-      tabContainer: document.getElementById("tab-frames"),
-      tabTemplate: document.getElementById("tab-template"),
-      btnTemplate: document.getElementById("temp-tab"),
-      tabBtnContainer: document.getElementById("TabsBar"),
-      URLBar: document.getElementById("adrbar"),
-      tabActiveColor: "#484848",
-      tabInactiveColor: "#444444d2",
-      defaultPlaceholder: "Starting Page",
+      tabContainer: object.tabContainer || document.getElementById("tabContainer"),
+      tabTemplate: object.tabTemplate || document.getElementById("tabTemplate"),
+      btnTemplate: object.btnTemplate || document.getElementById("btnTemplate"),
+      tabBtnContainer: object.tabBtnContainer || document.getElementById("tabBtnContainer"),
+      URLBar: object.URLBar || document.getElementById("adrbar"),
+      tabActiveColor: object.tabActiveColor || "#484848",
+      tabInactiveColor: object.tabInactiveColor || "#444444d2",
+      defaultPlaceholder: object.defaultPlaceHolder || "Starting Page",
     };
+    dp = this.defaultPlaceholder;
     this.tabs = [];
     this.tabCount = 0;
     this.activeTab = null;
@@ -236,7 +239,7 @@ export class Tab {
     if (searchBarContent == null) searchBarContent = "";
     this.searchBarContent = searchBarContent;
     if (placeholder == null)
-      placeholder = new TabSystem().getConfig().defaultPlaceholder;
+      placeholder = dp;
     this.placeholder = placeholder;
     this.connectedElement.addEventListener("click", () => {
       new TabSystem().setActiveTab(this);
