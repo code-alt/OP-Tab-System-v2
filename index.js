@@ -96,7 +96,7 @@ export class TabSystem {
     const btn = this.getBtnTemplate().cloneNode(true);
     if (id == null) id = "";
     btn.id = id;
-    btn.replace(/display: *none;*/g, "");
+    btn.style = btn.style.toString().replace(/display: *none;*/g, "");
     this.config.tabBtnContainer.appendChild(btn);
     return btn;
   }
