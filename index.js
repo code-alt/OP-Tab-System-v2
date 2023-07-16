@@ -56,9 +56,11 @@ THE SOFTWARE.
 // Tab.setTabElement(tabElement) - Sets the tab element.
 // Tab.setConnectedElement(connectedElement) - Sets the connected element.
 
-export var dp = "Starting Page"
+var dp = "Starting Page"
+var conf = {}
+var mainTS;
 
-export class TabSystem {
+class TabSystem {
   constructor(object) {
     this.config = {
       tabContainer: object.tabContainer || document.getElementById("tabContainer"),
@@ -68,14 +70,17 @@ export class TabSystem {
       URLBar: object.URLBar || document.getElementById("adrbar"),
       tabActiveColor: object.tabActiveColor || "#484848",
       tabInactiveColor: object.tabInactiveColor || "#444444d2",
-      defaultPlaceholder: object.defaultPlaceHolder || "Starting Page",
+      defaultPlaceholder: object.defaultPlaceholder || "Starting Page",
+      closePlaceholder: object.closePlaceholder || "No tab open"
     };
-    dp = this.defaultPlaceholder;
+    conf = this.config;
+    dp = this.config.defaultPlaceholder;
     this.tabs = [];
     this.tabCount = 0;
     this.activeTab = null;
     this.config.tabTemplate.style.display = "none";
     this.config.btnTemplate.style.display = "none";
+    mainTS = this;
   }
 
   addTab(tab) {
@@ -96,7 +101,7 @@ export class TabSystem {
     const btn = this.getBtnTemplate().cloneNode(true);
     if (id == null) id = "";
     btn.id = id;
-    btn.style = btn.style.toString().replace(/display: *none;*/g, "");
+    btn.style = btn.style.toString().replace(/display:(\ )*none(;){0,1}/g, "");
     this.config.tabBtnContainer.appendChild(btn);
     return btn;
   }
@@ -115,24 +120,25 @@ export class TabSystem {
       this.addTab(tab);
     }
     if (this.activeTab != null) {
+      this.activeTab.getConnectedElement().style.background = this.config.tabInactiveColor;
       this.activeTab.setSearchBarContent(
-        this.URLBar.value
+        this.config.URLBar.value
       );
       this.activeTab.setPlaceholder(
-        this.URLBar.placeholder
+        this.config.URLBar.placeholder
       );
     }
-    this.URLBar.value = "";
+    this.config.URLBar.value = "";
     if (tab != null && tab.getSearchBarContent()) {
-      this.URLBar.value = tab.getSearchBarContent();
+      this.config.URLBar.value = tab.getSearchBarContent();
     }
     this.activeTab = tab;
     if (tab != null && this.activeTab.getPlaceholder()) {
-      this.URLBar.placeholder =
+      this.config.URLBar.placeholder =
         this.activeTab.getPlaceholder();
     }
     if (this.activeTab == null) {
-      this.URLBar.placeholder = "No tab open. Click the + button to open a new tab.";
+      this.config.URLBar.placeholder = this.config.closePlaceholder;
     }
     for (var i = 0; i < this.tabs.length; i++) {
       if (this.tabs[i] == tab && tab != null) {
@@ -232,7 +238,7 @@ export class TabSystem {
   }
 }
 
-export class Tab {
+class Tab {
   constructor(connectedElement, tabFrame, searchBarContent, placeholder) {
     this.connectedElement = connectedElement;
     this.tabElement = tabFrame;
@@ -242,7 +248,7 @@ export class Tab {
       placeholder = dp;
     this.placeholder = placeholder;
     this.connectedElement.addEventListener("click", () => {
-      new TabSystem().setActiveTab(this);
+      mainTS.setActiveTab(this);
     });
   }
 
@@ -290,3 +296,6 @@ export class Tab {
     return this.placeholder;
   }
 }
+
+window.TabSystem = TabSystem
+window.Tab = Tab
