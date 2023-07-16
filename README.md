@@ -1,83 +1,11 @@
 # Code-Alt's OP Tab System v2
 Decent-ish tab system
 
-You can import https://cdn.jsdelivr.net/gh/code-alt/op-tab-system-v2@latest/index.js in order to use this.
+You can link a script tag to https://cdn.jsdelivr.net/gh/code-alt/op-tab-system-v2@main/index.js in order to use this.
 
 # Examples:
-
-## Create a Tab with a button and tab frame template:
-
-```js
-const tabSystem = new TabSystem({  // init our tab system
-    tabContainer: document.getElementById("tabContainer"),
-    tabTemplate: document.getElementById("tabTemplate"),
-    btnTemplate: ocument.getElementById("btnTemplate"),
-    tabBtnContainer: document.getElementById("tabBtnContainer"),
-    URLBar: document.getElementById("adrbar"),
-    tabActiveColor: "#484848",
-    tabInactiveColor: "#444444d2",
-    defaultPlaceholder: "Starting Page",
-});
-
-var newTab = new Tab(
-    tabSystem.createTabBtn(), // you can create a tab frame/btn from your template or use an existing element. An ID is not required, but it is recommended.
-    tabSystem.createTabFrame() // let's also make a frame.
-);
-
-tabSystem.addTab(newTab); // let's manage the tab now
-tabSystem.setActiveTab(newtab); // and let's set it as the active tab
-```
-<hr />
-
-## Create a Tab with an existing button and frame:
-
-```js
-const tabSystem = new TabSystem({  // init our tab system
-    tabContainer: document.getElementById("tabContainer"),
-    tabTemplate: document.getElementById("tabTemplate"),
-    btnTemplate: ocument.getElementById("btnTemplate"),
-    tabBtnContainer: document.getElementById("tabBtnContainer"),
-    URLBar: document.getElementById("adrbar"),
-    tabActiveColor: "#484848",
-    tabInactiveColor: "#444444d2",
-    defaultPlaceholder: "Starting Page",
-});
-
-var newTab = new Tab(
-    document.getElementById("omg-i-already-have-a-button"), // you can use an existing button if available
-    document.getElementById("omg-i-already-have-a-frame") // and an existing frame
-);
-
-tabSystem.addTab(newTab); // let's manage the tab now
-tabSystem.setActiveTab(newtab); // and let's set it as the active tab
-```
-<hr />
-
-## Create a Tab with a button and tab frame template, using random IDs with the genRanId() function:
-
-```js
-const tabSystem = new TabSystem({  // init our tab system
-    tabContainer: document.getElementById("tabContainer"),
-    tabTemplate: document.getElementById("tabTemplate"),
-    btnTemplate: ocument.getElementById("btnTemplate"),
-    tabBtnContainer: document.getElementById("tabBtnContainer"),
-    URLBar: document.getElementById("adrbar"),
-    tabActiveColor: "#484848",
-    tabInactiveColor: "#444444d2",
-    defaultPlaceholder: "Starting Page",
-});
-
-var newTab = new Tab(
-    tabSystem.createTabBtn(tabSystem.genRanId()), // you can create a tab frame/btn from your template or use an existing element. This uses tabSystem.genRanId() to generate an ID.
-    tabSystem.createTabFrame(tabSystem.genRanId()) // let's also make a frame.
-);
-
-tabSystem.addTab(newTab); // let's manage the tab now
-tabSystem.setActiveTab(newtab); // and let's set it as the active tab
-```
-<hr />
-
-<br />
+[OP Tab System Example](https://op-tab-system.glitch.me/)
+---
 
 # DOCS:
 
@@ -85,7 +13,7 @@ tabSystem.setActiveTab(newtab); // and let's set it as the active tab
 
 #### You must have a container for the tab frames, a container for the tabbed buttons, a tab frame template, a tab button template, and a search bar.
 #### This might be hard to set up! Make sure to set up your own classes and CSS until you find it satisfactory.
-
+---
 ### new TabSystem({tabContainer, tabTemplate, btnTemplate, tabBtnContainer, URLBar, tabActiveColor, tabInactiveColor, defaultPlaceholder})<br/>
 #### Initializes the TabSystem class, used for holding all the information about the tab system, and it's functions. Values tabContainer, tabTemplate, btnTemplate, tabBtnContainer, and URLBar are required to be in an object.
 ---
