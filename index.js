@@ -56,22 +56,29 @@ THE SOFTWARE.
 // Tab.setTabElement(tabElement) - Sets the tab element.
 // Tab.setConnectedElement(connectedElement) - Sets the connected element.
 
-var dp = "Starting Page"
-var conf = {}
+var dp = "Starting Page";
+var conf = {};
 var mainTS;
+var _OPTabSys_callbacks = {
+  tabChange: [],
+  tabAdd: [],
+  tabDelete: [],
+};
 
 class TabSystem {
   constructor(object) {
     this.config = {
-      tabContainer: object.tabContainer || document.getElementById("tabContainer"),
+      tabContainer:
+        object.tabContainer || document.getElementById("tabContainer"),
       tabTemplate: object.tabTemplate || document.getElementById("tabTemplate"),
       btnTemplate: object.btnTemplate || document.getElementById("btnTemplate"),
-      tabBtnContainer: object.tabBtnContainer || document.getElementById("tabBtnContainer"),
+      tabBtnContainer:
+        object.tabBtnContainer || document.getElementById("tabBtnContainer"),
       URLBar: object.URLBar || document.getElementById("adrbar"),
       tabActiveColor: object.tabActiveColor || "#484848",
       tabInactiveColor: object.tabInactiveColor || "#444444d2",
       defaultPlaceholder: object.defaultPlaceholder || "Starting Page",
-      closePlaceholder: object.closePlaceholder || "No tab open"
+      closePlaceholder: object.closePlaceholder || "No tab open",
     };
     conf = this.config;
     dp = this.config.defaultPlaceholder;
@@ -83,9 +90,40 @@ class TabSystem {
     mainTS = this;
   }
 
+  on(event, callback) {
+    switch (event) {
+      case "tabChange":
+        if (_OPTabSys_callbacks == null) _OPTabSys_callbacks = {};
+        if (_OPTabSys_callbacks.tabChange == null)
+          _OPTabSys_callbacks.tabChange = [];
+        _OPTabSys_callbacks.tabChange.push(callback);
+        break;
+      case "tabAdd":
+        if (_OPTabSys_callbacks == null) _OPTabSys_callbacks = {};
+        if (_OPTabSys_callbacks.tabAdd == null) _OPTabSys_callbacks.tabAdd = [];
+        _OPTabSys_callbacks.tabAdd.push(callback);
+        break;
+      case "tabDelete":
+        if (_OPTabSys_callbacks == null) _OPTabSys_callbacks = {};
+        if (_OPTabSys_callbacks.tabDelete == null)
+          _OPTabSys_callbacks.tabDelete = [];
+        _OPTabSys_callbacks.tabDelete.push(callback);
+        break;
+      default:
+        return console.error("Invalid event!");
+    }
+  }
+
   addTab(tab) {
     this.tabs.push(tab);
     this.tabCount++;
+    if (_OPTabSys_callbacks != null) {
+      if (_OPTabSys_callbacks.tabAdd != null) {
+        for (var i = 0; i < _OPTabSys_callbacks.tabAdd.length; i++) {
+          _OPTabSys_callbacks.tabAdd[i](tab);
+        }
+      }
+    }
     return tab;
   }
 
@@ -116,17 +154,21 @@ class TabSystem {
   }
 
   setActiveTab(tab) {
+    if (_OPTabSys_callbacks != null) {
+      if (_OPTabSys_callbacks.tabChange != null) {
+        for (var i = 0; i < _OPTabSys_callbacks.tabChange.length; i++) {
+          _OPTabSys_callbacks.tabChange[i](tab);
+        }
+      }
+    }
     if (!this.tabs.includes(tab) && tab != null) {
       this.addTab(tab);
     }
     if (this.activeTab != null) {
-      this.activeTab.getConnectedElement().style.background = this.config.tabInactiveColor;
-      this.activeTab.setSearchBarContent(
-        this.config.URLBar.value
-      );
-      this.activeTab.setPlaceholder(
-        this.config.URLBar.placeholder
-      );
+      this.activeTab.getConnectedElement().style.background =
+        this.config.tabInactiveColor;
+      this.activeTab.setSearchBarContent(this.config.URLBar.value);
+      this.activeTab.setPlaceholder(this.config.URLBar.placeholder);
     }
     this.config.URLBar.value = "";
     if (tab != null && tab.getSearchBarContent()) {
@@ -134,8 +176,7 @@ class TabSystem {
     }
     this.activeTab = tab;
     if (tab != null && this.activeTab.getPlaceholder()) {
-      this.config.URLBar.placeholder =
-        this.activeTab.getPlaceholder();
+      this.config.URLBar.placeholder = this.activeTab.getPlaceholder();
     }
     if (this.activeTab == null) {
       this.config.URLBar.placeholder = this.config.closePlaceholder;
@@ -194,6 +235,17 @@ class TabSystem {
               this.tabs[i].tabElement.remove();
               this.tabs.splice(i, 1);
               this.tabCount--;
+              if (_OPTabSys_callbacks != null) {
+                if (_OPTabSys_callbacks.tabDelete != null) {
+                  for (
+                    var i = 0;
+                    i < _OPTabSys_callbacks.tabDelete.length;
+                    i++
+                  ) {
+                    _OPTabSys_callbacks.tabDelete[i](tab);
+                  }
+                }
+              }
               return;
             }
           }
@@ -202,6 +254,13 @@ class TabSystem {
         this.tabs[i].tabElement.remove();
         this.tabs.splice(i, 1);
         this.tabCount--;
+        if (_OPTabSys_callbacks != null) {
+          if (_OPTabSys_callbacks.tabDelete != null) {
+            for (var i = 0; i < _OPTabSys_callbacks.tabDelete.length; i++) {
+              _OPTabSys_callbacks.tabDelete[i](tab);
+            }
+          }
+        }
         break;
       }
     }
@@ -244,8 +303,7 @@ class Tab {
     this.tabElement = tabFrame;
     if (searchBarContent == null) searchBarContent = "";
     this.searchBarContent = searchBarContent;
-    if (placeholder == null)
-      placeholder = dp;
+    if (placeholder == null) placeholder = dp;
     this.placeholder = placeholder;
     this.connectedElement.addEventListener("click", () => {
       mainTS.setActiveTab(this);
@@ -297,5 +355,5 @@ class Tab {
   }
 }
 
-window.TabSystem = TabSystem
-window.Tab = Tab
+window.TabSystem = TabSystem;
+window.Tab = Tab;
