@@ -242,7 +242,7 @@ class TabSystem {
                     i < _OPTabSys_callbacks.tabDelete.length;
                     i++
                   ) {
-                    _OPTabSys_callbacks.tabDelete[i](tab);
+                    _OPTabSys_callbacks.tabDelete[i](this.activeTab);
                   }
                 }
               }
@@ -257,7 +257,7 @@ class TabSystem {
         if (_OPTabSys_callbacks != null) {
           if (_OPTabSys_callbacks.tabDelete != null) {
             for (var i = 0; i < _OPTabSys_callbacks.tabDelete.length; i++) {
-              _OPTabSys_callbacks.tabDelete[i](tab);
+              _OPTabSys_callbacks.tabDelete[i](this.activeTab);
             }
           }
         }
