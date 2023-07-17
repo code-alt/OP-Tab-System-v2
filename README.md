@@ -62,6 +62,9 @@ You can link a script tag to https://cdn.jsdelivr.net/gh/code-alt/op-tab-system-
 ### TabSystem.deleteAllTabsExceptThese(tabs)<br/>
 #### Deletes all tabs except the specified tabs.
 ---
+### TabSystem.on(event, callback)
+#### Event has three possible values (tabChange, tabAdd, tabDelete) where all of the specified callbacks get run when the conditions of each event is met.
+---
 ### new Tab(connectedElement, tabFrame, searchBarContent, placeholder)<br/>
 #### Initializes the Tab class, used for holding all the information about the tab frame and the button used to activate it. Values connectedElement and tabFrame are required.
 ---
