@@ -231,22 +231,6 @@ class TabSystem {
               return alert("You can't delete the last tab!");
             } else {
               this.setActiveTab(null);
-              this.tabs[i].connectedElement.remove();
-              this.tabs[i].tabElement.remove();
-              this.tabs.splice(i, 1);
-              this.tabCount--;
-              if (_OPTabSys_callbacks != null) {
-                if (_OPTabSys_callbacks.tabDelete != null) {
-                  for (
-                    var i = 0;
-                    i < _OPTabSys_callbacks.tabDelete.length;
-                    i++
-                  ) {
-                    _OPTabSys_callbacks.tabDelete[i](this.activeTab);
-                  }
-                }
-              }
-              return;
             }
           }
         }
@@ -266,30 +250,49 @@ class TabSystem {
     }
   }
 
-  deleteTabs(tabs, force) {
-    for (var i = 0; i < tabs.length; i++) {
-      this.deleteTab(tabs[i], force);
+  deleteTabs(tabs) {
+    const tabsToDelete = tabs.slice();
+    for (let i = 0; i < tabsToDelete.length; i++) {
+      const tab = tabsToDelete[i];
+      if (tab === this.activeTab) {
+        if (this.tabs[i - 1]) {
+          this.setActiveTab(this.tabs[i - 1]);
+        } else if (this.tabs[i + 1]) {
+          this.setActiveTab(this.tabs[i + 1]);
+        } else {
+          this.setActiveTab(null);
+        }
+      }
+      tab.connectedElement.remove();
+      tab.tabElement.remove();
+      this.tabs.splice(this.tabs.indexOf(tab), 1);
+      this.tabCount--;
+    }
+    if (_OPTabSys_callbacks?.tabDelete) {
+      _OPTabSys_callbacks.tabDelete.forEach((callback) =>
+        callback(this.activeTab)
+      );
     }
   }
 
   deleteAllTabs() {
-    this.deleteTabs(this.tabs, true);
+    this.deleteTabs(this.tabs);
   }
 
   deleteAllTabsExcept(tab) {
-    for (var i = 0; i < this.tabs.length; i++) {
-      if (this.tabs[i] != tab) {
-        this.deleteTab(this.tabs[i], true);
-      }
-    }
+    const tabsToDelete = this.tabs.slice();
+    tabsToDelete.splice(tabsToDelete.indexOf(tab), 1);
+    this.deleteTabs(tabsToDelete);
   }
 
   deleteAllTabsExceptThese(tabs) {
-    for (var i = 0; i < this.tabs.length; i++) {
-      if (!tabs.includes(this.tabs[i])) {
-        this.deleteTab(this.tabs[i], true);
+    const tabsToDelete = this.tabs.slice();
+    tabsToDelete.forEach((tab) => {
+      if (tabs.includes(tab)) {
+        tabsToDelete.splice(tabsToDelete.indexOf(tab), 1);
       }
-    }
+    });
+    this.deleteTabs(tabsToDelete);
   }
 
   getConfig() {
