@@ -1,4 +1,4 @@
-# Code-Alt's OP Tab System v2 (v3 is arriving shortly)
+# Code-Alt's OP Tab System v2 (v3 will be arriving shortly)
 Decent-ish tab system
 
 You can link a script tag to https://cdn.jsdelivr.net/gh/code-alt/op-tab-system-v2@main/index.js in order to use this.
