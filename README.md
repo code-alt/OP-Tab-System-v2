@@ -1,5 +1,5 @@
 # Code-Alt's OP Tab System v2 (v3 will be arriving shortly)
-Decent-ish tab system
+Decent-ish tab system (complete mistake making the tab-system a class because I am not adding multiple tab system support until v3)
 
 You can link a script tag to https://cdn.jsdelivr.net/gh/code-alt/op-tab-system-v2@main/index.js in order to use this.
 
