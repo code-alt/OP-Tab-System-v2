@@ -11,10 +11,10 @@ You can link a script tag to https://cdn.jsdelivr.net/gh/code-alt/op-tab-system-
 
 ### here are some prerequisites:
 
-#### You must have a container for the tab frames, a container for the tabbed buttons, a tab frame template, a tab button template, and a search bar. You will also need an "op-active-tab" class that has color for an active tab along with other css for your tabs.
+#### You must have a container for the tab frames, a container for the tabbed buttons, a tab frame template, a tab button template, and a search bar. You will also need an active tab class that has color for an active tab along with other css for your tabs.
 #### This might be hard to set up! Make sure to set up your own classes and CSS until you find it satisfactory.
 ---
-### new TabSystem({tabContainer, tabTemplate, btnTemplate, tabBtnContainer, URLBar, tabActiveColor, tabInactiveColor, defaultPlaceholder})<br/>
+### new TabSystem({tabContainer, tabTemplate, btnTemplate, tabBtnContainer, URLBar, tabActiveClass, defaultPlaceholder})<br/>
 #### Initializes the TabSystem class, used for holding all the information about the tab system, and it's functions. Values tabContainer, tabTemplate, btnTemplate, tabBtnContainer, and URLBar are required to be in an object.
 ---
 ### TabSystem.addTab(tab)<br/>
