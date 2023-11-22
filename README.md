@@ -4,7 +4,7 @@ Decent-ish tab system (complete mistake making the tab-system a class because I 
 You can link a script tag to https://cdn.jsdelivr.net/gh/code-alt/op-tab-system-v2@main/index.js in order to use this.
 
 # Examples:
-[OP Tab System Example](https://op-tab-system.glitch.me/)
+* [OP Tab System Example](https://op-tab-system.glitch.me/)
 ---
 
 # DOCS:
