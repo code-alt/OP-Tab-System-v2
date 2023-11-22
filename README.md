@@ -74,12 +74,6 @@ You can link a script tag to https://cdn.jsdelivr.net/gh/code-alt/op-tab-system-
 ### Tab.getTabElement()<br/>
 #### Returns the tab element.
 ---
-### Tab.setTabElement(tabElement)<br/>
-#### Sets the tab element.
----
-### Tab.setConnectedElement(connectedElement)<br/>
-#### Sets the connected element.
----
 
 ##### Made by your boy code-alt, you already know
 ###### Feel free to slide in my DMs if you need help with this, or if you just wanna talk :)
